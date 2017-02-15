@@ -22,3 +22,6 @@
 ### Reporting
 * Report generating to `functional_autotests/target/site` folder
 * Run `index.html` from IDE to see the report
+
+### Logs
+* Logs can be found in ``functional_autotests/target/logs folder`
