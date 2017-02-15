@@ -22,6 +22,15 @@ public class MailPageSteps extends BaseSteps{
     public void iOpenLetterWithTitle(String letterTitle) {
         mailPage.openLetter(letterTitle);
         stepContainer.store(stepContainer.TITLE, letterTitle);
+
+        try {
+            Thread.sleep(driverUtils.sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driverUtils.waitForPageLoad();
+        driverUtils.waitForProcess();
     }
 
     @Then("^Letter title is displayed and valid$")
@@ -51,5 +60,12 @@ public class MailPageSteps extends BaseSteps{
     @When("^Fail$")
     public void fail() {
         Assert.fail();
+    }
+
+    @And("^Sender mail is \"([^\"]*)\"$")
+    public void senderMailIs(String email) {
+            assertThat(mailPage.letterViewBlock.mailSender.getText().trim())
+                    .as("Senders mail is valid")
+                    .isEqualTo(email);
     }
 }

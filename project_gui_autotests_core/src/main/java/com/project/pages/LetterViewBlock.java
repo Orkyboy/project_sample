@@ -20,6 +20,9 @@ public class LetterViewBlock extends BasePage {
     @FindBy(xpath = "//div[@class='ns-view-message-body ns-view-id-114 mail-Message-Body js-message-body']")
     public WebElement letterBody;
 
+    @FindBy(xpath = "//span[@class='mail-Message-Sender-Email mail-ui-HoverLink-Content']")
+    public WebElement mailSender;
+
     @PostConstruct
     public void init() {
         PageFactory.initElements(driver, this);

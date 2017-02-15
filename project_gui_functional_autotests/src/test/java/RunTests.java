@@ -16,7 +16,7 @@ import org.slf4j.MDC;
                 "pretty", "json:target/Cucumber.json",
                 "html:target/cucumber-html-report"
         }
-        ,tags = {"~@Ignore", "~@InDev"}
+        ,tags = {"~@Ignore", "~@InDev", "@777"}
 )
 public class RunTests {
 
