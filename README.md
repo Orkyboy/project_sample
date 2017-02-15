@@ -17,7 +17,7 @@
 * Open a terminal or command prompt
 * Go to **{PROJECT_ROOT}**
 * Execute `mvn clean verify -PSingle` for one thread test execution
-* Execute `mvn clean verify -PParallel` for one thread test execution
+* Execute `mvn clean verify -PParallel` for parallel test execution
 
 ### Reporting
 * Report generating to `target/site folder`
