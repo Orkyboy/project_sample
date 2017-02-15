@@ -20,5 +20,5 @@
 * Execute `mvn clean verify -PParallel` for parallel test execution
 
 ### Reporting
-* Report generating to `target/site folder`
+* Report generating to `functional_autotests/target/site` folder
 * Run `index.html` from IDE to see the report
