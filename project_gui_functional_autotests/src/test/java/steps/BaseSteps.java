@@ -1,10 +1,11 @@
 package steps;
 
 import com.project.reporting.AllureAttachments;
+//import com.project.util.DriverUtils;
 import com.project.util.DriverUtils;
 import com.project.util.StepContainer;
-import com.project.util.WebDriverWrap;
 import configuration.SpringConfig;
+import io.appium.java_client.AppiumDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BaseSteps {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
-    protected WebDriverWrap driver;
+    protected AppiumDriver driver;
     @Autowired
     protected DriverUtils driverUtils;
     @Autowired

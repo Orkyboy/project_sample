@@ -1,5 +1,7 @@
 package com.project.util;
 
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -13,16 +15,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by User on 15.02.2017.
- */
+
 @Component
 public class DriverUtils {
 
     private final Logger logger = LoggerFactory.getLogger(DriverUtils.class);
 
     @Autowired
-    private WebDriverWrap driver;
+    private AppiumDriver driver;
 
     @Value("${driver.timeout.default:30000}")
     private int defaultTimeout;
@@ -37,7 +37,14 @@ public class DriverUtils {
         driver.manage().timeouts().implicitlyWait(milliseconds, TimeUnit.MILLISECONDS);
     }
 
-    public boolean isElementDisplayed(WebElement element) {
+    public void sleep() {
+        try {
+            Thread.sleep(sleepTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public boolean isElementDisplayed(MobileElement element) {
         setWaitingTimeout(100);
         try {
             return element.isDisplayed();
@@ -65,13 +72,9 @@ public class DriverUtils {
         }
     }
 
-    public void waitForPageLoad() {
-        new WebDriverWait(driver.getWrappedDriver(), defaultTimeout / 1000).until((ExpectedCondition<Boolean>) wd ->
-                ((JavascriptExecutor) wd).executeScript("return document.readyState").equals("complete"));
-    }
 
     public boolean waitForProcess() {
-        By processElem = By.xpath("//*[contains(text(),'Подождите') or contains(text(),'Открываем')]");
+        By processElem = By.xpath("");
         try {
             Wait<WebDriver> wait = new WebDriverWait(driver, defaultElementTimeout / 1000, 1000);
             driver.manage().timeouts().implicitlyWait(100, TimeUnit.MILLISECONDS);

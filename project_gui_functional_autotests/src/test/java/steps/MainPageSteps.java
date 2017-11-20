@@ -1,49 +1,41 @@
 package steps;
 
+import com.project.pages.LoginPage;
 import com.project.pages.MainPage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import steps.BaseSteps;
 
-/**
- * Created by User on 15.02.2017.
- */
-public class MainPageSteps extends BaseSteps {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class MainPageSteps extends BaseSteps{
 
     @Autowired
     private MainPage mainPage;
-    @Value("${user.email}")
-    private String user;
-    @Value("${user.password}")
-    private String password;
 
 
-
-    @Given("^I am on the main page$")
-    public void iAmOnTheMainPage() {
-        mainPage.open();
+    @Then("^Main Page is displayed$")
+    public void mainPageIsDisplayed() {
+        assertThat(mainPage.isPageDisplayed())
+                .as("Main page s displayed")
+                .isTrue();
     }
 
-
-    @When("^I login as \"([^\"]*)\" user from main page$")
-    public void iLoginAsUserFromMainPage(String username) {
-        switch (username.toLowerCase()) {
-            case "yatestexample@yandex.ru":
-                mainPage.login(user, password);
-                break;
-            default:
-                throw new IllegalArgumentException("Cannot find user: " + username);
+    @Given("^I am on the Main Page$")
+    public void iAmOnTheMainPage() {
+        if (!mainPage.isPageDisplayed()
+                && driverUtils.isElementDisplayed(mainPage.getHeaderBlock().getCloseBtn())) {
+            mainPage.getHeaderBlock().getCloseBtn().click();
         }
-        try {
-            Thread.sleep(driverUtils.sleepTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (!mainPage.isPageDisplayed()) {
+            throw new IllegalStateException("Not on the main page and no close btn is displayed");
         }
+    }
 
-        driverUtils.waitForPageLoad();
-        driverUtils.waitForProcess();
+    @When("^I click transfer button$")
+    public void iClickTransferButton() {
+        mainPage.getTransferButton().click();
     }
 }

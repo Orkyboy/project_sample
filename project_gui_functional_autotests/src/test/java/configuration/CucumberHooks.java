@@ -1,11 +1,9 @@
 package configuration;
 
-import com.project.pages.MailPage;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import steps.BaseSteps;
 
 /**
@@ -13,13 +11,10 @@ import steps.BaseSteps;
  */
 public class CucumberHooks extends BaseSteps {
 
-    @Autowired
-    private MailPage mailPage;
 
     @After
     public void afterFailed(Scenario scenario) {
         if (scenario.isFailed()) {
-            allureAttachments.attachCurrentUrl();
             allureAttachments.attachScreenshot();
         }
     }
@@ -29,10 +24,4 @@ public class CucumberHooks extends BaseSteps {
         MDC.put("scenarioName", scenario.getName());
     }
 
-
-    @After("@LogoutFromMailPageHeaderAfter")
-    public void logoutAfter() {
-        mailPage.header.username.click();
-        mailPage.header.exitButton.click();
-    }
 }

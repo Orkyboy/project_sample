@@ -1,31 +1,33 @@
 package com.project.pages;
 
-import com.project.util.WebDriverWrap;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import lombok.Getter;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Created by User on 15.02.2017.
- */
 @Component
+@Getter
 public class HeaderBlock {
 
     @Autowired
-    private WebDriverWrap driver;
+    private AppiumDriver driver;
 
-    @FindBy(xpath = "//div[@class='mail-User-Name']")
-    public WebElement username;
+    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/menu_action_info']")
+    private MobileElement infoBtn;
 
-    @FindBy(xpath = "//a[text()='Выход']")
-    public WebElement exitButton;
+    @FindBy(xpath = "//*[@resource-id = 'android.widget.ImageButton']")
+    private MobileElement closeBtn;
 
     @PostConstruct
-    public void init() {
-        PageFactory.initElements(driver, this);
+    private void init() {
+        PageFactory.initElements(new AppiumFieldDecorator(driver, 30, TimeUnit.SECONDS), this);
     }
+
 }

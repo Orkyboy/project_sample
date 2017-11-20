@@ -11,7 +11,6 @@ import java.util.Map;
 @Component
 public class StepContainer {
 
-    public final String TITLE = "title";
 
     private Map<String, Object> storedValues = new HashMap<>();
 

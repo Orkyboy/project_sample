@@ -1,19 +1,18 @@
 package com.project.configuration;
 
-import com.project.util.WebDriverWrap;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * Created by User on 15.02.2017.
@@ -27,26 +26,27 @@ public class DriverConfig {
     @Value("${driver.name: chrome}")
     private String driverName;
 
+    @Value("${path.to.app}")
+    private String pathToApp;
+
+    @Value("${appium.server.url}")
+    private String appiumUrl;
+
+    @Value("${base.package}")
+    private String basePackage;
+
     @Bean(destroyMethod = "quit")
-    public WebDriverWrap  webDriverWrap() {
-        WebDriver driver;
-        switch (driverName.toLowerCase()) {
-            case "chrome":
-                ChromeDriverManager.getInstance().setup();
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                FirefoxDriverManager.getInstance().setup();
-                driver = new FirefoxDriver();
-                break;
-            case "IE":
-                InternetExplorerDriverManager.getInstance().setup();
-                driver = new InternetExplorerDriver();
-                break;
-                default: throw new IllegalArgumentException("Invalid driver type: " + driverName);
+    public AppiumDriver appiumDriver() {
+        File appDir = new File(pathToApp);
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+        capabilities.setCapability(MobileCapabilityType.APP, appDir.getAbsolutePath());
+        capabilities.setCapability(AndroidMobileCapabilityType.APP_WAIT_ACTIVITY, basePackage);
+
+        try {
+            return new AndroidDriver<MobileElement>(new URL(appiumUrl), capabilities);
+        } catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Cannot crate android driver by URL: " + appiumUrl);
         }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(defaultTimeout, TimeUnit.MILLISECONDS);
-        return new WebDriverWrap(driver);
     }
 }
