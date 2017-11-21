@@ -1,6 +1,7 @@
 package com.project.pages;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.support.FindBy;
@@ -16,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class SelectPaymentMethodPage extends BasePage {
 
 
-    @FindBy(xpath = "//android.widget.LinearLayout/android.widget.TextView")
+    @AndroidFindBy(xpath = "//android.widget.LinearLayout/android.widget.TextView")
     private List<MobileElement> options;
 
     @PostConstruct

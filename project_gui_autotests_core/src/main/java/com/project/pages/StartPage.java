@@ -1,6 +1,7 @@
 package com.project.pages;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.support.FindBy;
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class StartPage extends BasePage {
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/header_next']")
+    @AndroidFindBy(id = "header_next")
     private MobileElement skipLbl;
 
     @PostConstruct

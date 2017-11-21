@@ -2,6 +2,7 @@ package com.project.pages;
 
 import com.project.util.DriverUtils;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Data;
 import lombok.Getter;
@@ -28,19 +29,19 @@ public class LoginPage extends BasePage {
     @Value("#{'${user.default.code:1,2,4,5}'.split(',')}")
     private List<String> userCode;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/uic_edit_country_code']")
+    @AndroidFindBy(id = "uic_edit_country_code")
     private MobileElement countryField;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/search_src_text']")
+    @AndroidFindBy(id = "search_src_text")
     private MobileElement searchField;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/country_item']")
+    @AndroidFindBy(id = "country_item")
     private MobileElement firstCountryItem;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/uic_edit_phone_number']")
+    @AndroidFindBy(id = "uic_edit_phone_number")
     private MobileElement telField;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/signup_next']")
+    @AndroidFindBy(id = "signup_next")
     private MobileElement nextBtn;
 
     @PostConstruct

@@ -29,6 +29,7 @@
         <assertj.version>3.6.2</assertj.version>
         <driverManager.version>1.7.2</driverManager.version>
         <lombok.version>1.16.18</lombok.version>
+        <qala.version>2.2.1</qala.version>
         <!-- Variables -->
         <forksNumber>2C</forksNumber>
     </properties>
@@ -39,6 +40,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+        </dependency>
+        <!--Random data generator -->
+        <dependency>
+            <groupId>io.qala.datagen</groupId>
+            <artifactId>qala-datagen</artifactId>
+            <version>${qala.version}</version>
         </dependency>
         <!--appium-->
         <dependency>
@@ -51,18 +58,6 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
-        </dependency>
-        <!-- Selenium -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-        </dependency>
-        <!-- Driver Manager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>${driverManager.version}</version>
         </dependency>
         <!-- Assertj -->
         <dependency>
@@ -158,13 +153,6 @@
                 <module>project_gui_functional_autotests</module>
                 <module>project_gui_autotests_config</module>
             </modules>
-        </profile>
-        <profile>
-            <id>Parallel</id>
-            <properties>
-                <junit.parallel>classes</junit.parallel>
-                <run.classes>**/RunTestsParallel*.class</run.classes>
-            </properties>
         </profile>
     </profiles>
     <build>

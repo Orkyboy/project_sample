@@ -2,18 +2,12 @@ package steps;
 
 import com.project.pages.BankTransferPage;
 import com.project.pages.StartPage;
-import com.project.pages.TypeSmsCodeBlock;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.interactions.touch.SingleTapAction;
+import org.assertj.core.api.SoftAssertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,5 +32,23 @@ public class BankTransferPageSteps extends BaseSteps{
 //        bankTransferPage.getAddNewBenBtn().click();
         TouchAction a2 = new TouchAction(driver);
         a2.tap(216, 503).perform();
+    }
+
+    @Then("^first beneficiary item contains newly created information$")
+    public void firstBeneficiaryItemContainsNewlyCreatedInformation() {
+        String firstName = stepContainer.getValueAsString(AddBeneficiaryPageSteps.FIRST_NAME_KEY);
+        String lastName = stepContainer.getValueAsString(AddBeneficiaryPageSteps.LAST_NAME_KEY);
+        String accNum = stepContainer.getValueAsString(AddBeneficiaryPageSteps.ACCOUNT_NUMBER_KEY);
+        String sortCode = stepContainer.getValueAsString(AddBeneficiaryPageSteps.SORT_CODE_KEY);
+        SoftAssertions assertions = new SoftAssertions();
+        assertions.assertThat(bankTransferPage.getBeneficiaryNameAndCurrency(0))
+                .as("Name is correct")
+                .startsWith(firstName + " " + lastName);
+        assertions.assertThat(bankTransferPage.getBeneficiaryAccountNumber(0))
+                .as("Account Number is correct")
+                .endsWith(accNum);
+        assertions.assertThat(bankTransferPage.getBeneficiarySortCode(0))
+                .endsWith(sortCode);
+        assertions.assertAll();
     }
 }

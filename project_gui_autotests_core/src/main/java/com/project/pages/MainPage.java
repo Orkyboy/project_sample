@@ -1,6 +1,7 @@
 package com.project.pages;
 
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import lombok.Getter;
 import org.openqa.selenium.support.FindBy;
@@ -14,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class MainPage extends BasePage {
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/uic_wallet_pager']")
+    @AndroidFindBy(id = "uic_wallet_pager")
     private MobileElement walletBalance;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.revolut.revolut.test:id/button_transfer']")
+    @AndroidFindBy(id = "button_transfer")
     private MobileElement transferButton;
 
     @PostConstruct

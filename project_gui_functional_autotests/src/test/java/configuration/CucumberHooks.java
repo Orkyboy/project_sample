@@ -1,5 +1,6 @@
 package configuration;
 
+import com.project.pages.AddBeneficiaryPage;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -17,6 +18,15 @@ public class CucumberHooks extends BaseSteps {
         if (scenario.isFailed()) {
             allureAttachments.attachScreenshot();
         }
+    }
+
+    @After("@PressDoneIfNot")
+    public void pressDone() {
+       AddBeneficiaryPage page = new AddBeneficiaryPage();
+       if (!driverUtils.isElementDisplayed(page.getDoneBtn())) {
+           page.getDoneBtn().click();
+       }
+
     }
 
     @Before
