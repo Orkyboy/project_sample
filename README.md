@@ -26,6 +26,6 @@
 ### Notes
 * Application stored in resources folder, but there is a property for app path for external application delivery (`path.to.app` property)
 
-###Project structure
+### Project structure
 * Project contains 3 modules: configuration, core and tests module
 * Cucumber feature files stored in resources folder in tests module
